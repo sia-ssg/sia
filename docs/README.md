@@ -71,17 +71,26 @@ my-site/
 ├── _config.yml          # Site configuration
 ├── src/
 │   ├── posts/           # Blog posts (markdown)
-│   │   └── 2024-12-17-my-post/
-│   │       ├── index.md
-│   │       └── (assets can go here)
+│   │   ├── 2024-12-17-my-post/    # Flat structure (default)
+│   │   │   ├── index.md
+│   │   │   └── (assets can go here)
+│   │   └── 2024/                   # Or date-organized (if path: posts/:year/:month)
+│   │       └── 12/
+│   │           └── 2024-12-17-my-post/
+│   │               ├── index.md
+│   │               └── (assets can go here)
 │   ├── pages/           # Static pages
 │   │   └── about/
 │   │       ├── index.md
 │   │       └── (assets can go here)
 │   ├── notes/           # Short notes/tweets
-│   │   └── 2024-12-17-note-1234567890/
-│   │       ├── index.md
-│   │       └── (assets can go here)
+│   │   ├── 2024-12-17-note-1234567890/  # Flat structure (default)
+│   │   │   ├── index.md
+│   │   │   └── (assets can go here)
+│   │   └── 2024/                    # Or date-organized (if path: notes/:year)
+│   │       └── 2024-12-17-note-1234567890/
+│   │           ├── index.md
+│   │           └── (assets can go here)
 │   └── images/          # Images
 ├── assets/              # Static assets (optional)
 ├── static/              # Static assets (optional)
@@ -97,9 +106,38 @@ my-site/
 
 Each post, page, and note is created as a folder containing an `index.md` file. This allows you to organize assets (images, PDFs, etc.) alongside your content in the same folder.
 
+**Note:** You can organize posts and notes by date using date variables in the `path` configuration (e.g., `posts/:year/:month`). See [Date Variables in Paths](#date-variables-in-paths) for details.
+
 ## Configuration
 
 Edit `_config.yml` to customize your site:
+
+### Date Variables in Paths
+
+You can organize posts and notes by date using date variables in the `path` property:
+
+```yaml
+collections:
+  posts:
+    path: posts/:year/:month    # Organizes posts by year and month
+    # New posts will be created in: posts/2024/01/2024-01-15-slug/
+  
+  notes:
+    path: notes/:year            # Organizes notes by year only
+    # New notes will be created in: notes/2024/2024-01-15-note-1234567890/
+```
+
+**Supported date variables:**
+- `:year` - 4-digit year (e.g., `2024`)
+- `:month` - 2-digit month (e.g., `01`, `12`)
+- `:day` - 2-digit day (e.g., `01`, `31`)
+
+**Examples:**
+- `posts/:year/:month` → `posts/2024/01/`
+- `posts/:year` → `posts/2024/`
+- `notes/:year/:month/:day` → `notes/2024/01/15/`
+
+When loading collections, Sia automatically searches recursively through all date-organized directories, so existing content will be found regardless of the path structure.
 
 ```yaml
 site:
@@ -117,7 +155,7 @@ output: dist
 
 collections:
   posts:
-    path: posts
+    path: posts              # Or use date variables: posts/:year/:month
     layout: post
     permalink: /blog/:slug/
     sortBy: date
@@ -127,7 +165,7 @@ collections:
     layout: page
     permalink: /:slug/
   notes:
-    path: notes
+    path: notes              # Or use date variables: notes/:year
     layout: note
     permalink: /notes/:slug/
 

@@ -165,12 +165,31 @@ Blog posts are stored in `src/posts/` (or your configured path).
 # From _config.yml
 collections:
   posts:
-    path: posts
+    path: posts              # Or use date variables: posts/:year/:month
     layout: post
     permalink: /blog/:slug/
     sortBy: date
     sortOrder: desc
 ```
+
+**Date Variables in Paths:**
+
+You can organize posts by date using date variables in the `path` property:
+
+```yaml
+collections:
+  posts:
+    path: posts/:year/:month    # Creates: posts/2024/01/2024-01-15-slug/
+    # Or
+    path: posts/:year            # Creates: posts/2024/2024-01-15-slug/
+```
+
+**Supported variables:**
+- `:year` - 4-digit year (e.g., `2024`)
+- `:month` - 2-digit month (e.g., `01`, `12`)
+- `:day` - 2-digit day (e.g., `01`, `31`)
+
+When you create a new post, it will be automatically placed in the correct date-organized directory based on the current date.
 
 ### Typical Post Front Matter
 
@@ -268,12 +287,31 @@ Notes are short-form content stored in `src/notes/` (or your configured path). T
 # From _config.yml
 collections:
   notes:
-    path: notes
+    path: notes              # Or use date variables: notes/:year
     layout: note
     permalink: /notes/:slug/
     sortBy: date
     sortOrder: desc
 ```
+
+**Date Variables in Paths:**
+
+You can organize notes by date using date variables in the `path` property:
+
+```yaml
+collections:
+  notes:
+    path: notes/:year         # Creates: notes/2024/2024-01-15-note-1234567890/
+    # Or
+    path: notes/:year/:month  # Creates: notes/2024/01/2024-01-15-note-1234567890/
+```
+
+**Supported variables:**
+- `:year` - 4-digit year (e.g., `2024`)
+- `:month` - 2-digit month (e.g., `01`, `12`)
+- `:day` - 2-digit day (e.g., `01`, `31`)
+
+When you create a new note, it will be automatically placed in the correct date-organized directory based on the current date.
 
 ### Typical Note Front Matter
 
