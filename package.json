@@ -1,5 +1,5 @@
 {
-  "name": "@terrymooreii/sia",
+  "name": "@sia-ssg/sia",
   "version": "3.0.0",
   "description": "A simple, powerful static site generator with markdown, front matter, and Nunjucks templates",
   "main": "lib/index.js",
