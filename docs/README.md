@@ -238,10 +238,19 @@ Sia includes a powerful plugin system that allows you to extend functionality at
 Plugins can be local (in `_plugins/` directory) or npm packages (with `sia-plugin-*` naming):
 
 ```bash
+# Scaffold a new plugin (interactive)
+sia plugin my-plugin
+
+# Scaffold a local plugin
+sia plugin my-plugin --type local --quick
+
+# Scaffold an npm package plugin
+sia plugin my-plugin --type npm --quick
+
 # Install an npm plugin
 npm install sia-plugin-search
 
-# Or create a local plugin in _plugins/my-plugin.js
+# Or create a local plugin manually in _plugins/my-plugin.js
 ```
 
 Configure plugins in `_config.yml`:
@@ -319,6 +328,7 @@ dist/
 | `sia new page "Title"` | Create a new page |
 | `sia new note "Content"` | Create a new note |
 | `sia theme <name>` | Create a new theme package |
+| `sia plugin <name>` | Create a new plugin (local or npm package) |
 | `sia migrate` | Migrate standalone .md files to folder structure |
 
 ## License

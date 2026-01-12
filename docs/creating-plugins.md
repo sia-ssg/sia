@@ -2,6 +2,27 @@
 
 This guide explains how to create plugins for Sia, both as local plugins in your project and as npm packages that can be shared with others.
 
+## Quick Start: Using the Scaffold Command
+
+The easiest way to create a new plugin is using the `sia plugin` command:
+
+```bash
+# Interactive mode - prompts for plugin type
+sia plugin my-plugin
+
+# Quick mode - create a local plugin
+sia plugin my-plugin --type local --quick
+
+# Quick mode - create an npm package plugin
+sia plugin my-plugin --type npm --quick
+```
+
+This command will:
+- **Local plugins**: Create a plugin file in `_plugins/` with a basic structure and example hooks
+- **NPM package plugins**: Create a full package structure (`sia-plugin-*`) with `package.json`, `index.js`, `README.md`, and `LICENSE`
+
+After scaffolding, edit the generated files to implement your plugin logic.
+
 ## Plugin Types
 
 Sia supports two types of plugins:
@@ -14,6 +35,8 @@ Sia supports two types of plugins:
 Local plugins are perfect for project-specific functionality that you don't need to share.
 
 ### Creating a Local Plugin
+
+You can use the scaffold command (`sia plugin <name> --type local`) or create one manually:
 
 1. Create a `_plugins/` directory in your project root (if it doesn't exist)
 2. Create a JavaScript file (`.js` or `.mjs`) in that directory
@@ -111,6 +134,8 @@ plugins:
 NPM package plugins can be shared with the community and installed via npm.
 
 ### Creating an NPM Package Plugin
+
+You can use the scaffold command (`sia plugin <name> --type npm`) to generate a complete package structure, or create one manually:
 
 1. Create a new npm package with name starting with `sia-plugin-`
 2. Set up the package structure

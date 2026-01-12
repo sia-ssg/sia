@@ -16,6 +16,7 @@ import { newCommand } from '../lib/new.js';
 import { initCommand } from '../lib/init.js';
 import { themeCommand } from '../lib/theme.js';
 import { migrateCommand } from '../lib/migrate.js';
+import { pluginCommand } from '../lib/plugin.js';
 
 program
   .name('sia')
@@ -54,6 +55,13 @@ program
   .description('Create a new Sia theme package')
   .option('-q, --quick', 'Skip prompts and use defaults')
   .action(themeCommand);
+
+program
+  .command('plugin <name>')
+  .description('Create a new Sia plugin')
+  .option('-q, --quick', 'Skip prompts and use defaults')
+  .option('-t, --type <type>', 'Plugin type: local or npm')
+  .action(pluginCommand);
 
 program
   .command('migrate')
