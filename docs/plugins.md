@@ -125,23 +125,23 @@ Executes after the build completes, including asset copying.
 
 ### Content Processing Hooks
 
-#### `beforeContentParse(rawContent, filePath)`
+#### `beforeContentParse(rawContent, context)`
 Executes before a markdown file is parsed. Can modify the raw content.
 
 **Parameters:**
 - `rawContent`: Raw file content (string)
-- `filePath`: Path to the file
+- `context`: Object with `filePath`, `config`, and `api`
 
 **Returns:** Modified content string (or original if unchanged)
 
 **Use cases:** Pre-process markdown, inject content, transform syntax
 
-#### `afterContentParse(item, filePath)`
+#### `afterContentParse(item, context)`
 Executes after a content item is parsed. Can modify the item.
 
 **Parameters:**
 - `item`: Parsed content item object
-- `filePath`: Path to the file
+- `context`: Object with `filePath`, `config`, and `api`
 
 **Returns:** Modified item object (or original if unchanged)
 
@@ -152,7 +152,7 @@ Executes before markdown is converted to HTML. Can modify the markdown.
 
 **Parameters:**
 - `markdown`: Markdown content (string)
-- `context`: Object with `filePath` and `frontMatter`
+- `context`: Object with `filePath`, `frontMatter`, `config`, and `api`
 
 **Returns:** Modified markdown string (or original if unchanged)
 
@@ -163,7 +163,7 @@ Executes after markdown is converted to HTML. Can modify the HTML.
 
 **Parameters:**
 - `html`: Generated HTML (string)
-- `context`: Object with `filePath` and `frontMatter`
+- `context`: Object with `filePath`, `frontMatter`, `config`, and `api`
 
 **Returns:** Modified HTML string (or original if unchanged)
 

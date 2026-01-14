@@ -189,7 +189,7 @@ export default {
   hooks: {
     afterBuild: async (siteData, config, api) => {
       const pluginConfig = config.plugins?.config?.['sia-plugin-example'] || {};
-      
+      console.log(api)
       if (pluginConfig.enabled === false) {
         return;
       }
@@ -242,16 +242,43 @@ export default {
   name: 'content-transformer',
   version: '1.0.0',
   hooks: {
+    beforeContentParse: (rawContent, context) => {
+      // Access plugin config via context
+      const pluginConfig = context?.config?.plugins?.config?.['content-transformer'] || {};
+      
+      // Pre-process raw content
+      if (pluginConfig.enableCustomSyntax) {
+        return rawContent.replace(/\[CUSTOM\]/g, '<!-- Custom -->');
+      }
+      return rawContent;
+    },
     beforeMarkdown: (markdown, context) => {
       // Replace custom syntax
+      // context contains: filePath, frontMatter, config, api
       return markdown.replace(/\[TOC\]/g, '<!-- Table of Contents -->');
     },
     afterMarkdown: (html, context) => {
       // Inject custom HTML
-      return html.replace(
-        '<!-- Table of Contents -->',
-        '<nav class="toc">...</nav>'
-      );
+      // context contains: filePath, frontMatter, config, api
+      const pluginConfig = context?.config?.plugins?.config?.['content-transformer'] || {};
+      
+      if (pluginConfig.enabled !== false) {
+        return html.replace(
+          '<!-- Table of Contents -->',
+          '<nav class="toc">...</nav>'
+        );
+      }
+      return html;
+    },
+    afterContentParse: (item, context) => {
+      // Access plugin config via context
+      const pluginConfig = context?.config?.plugins?.config?.['content-transformer'] || {};
+      
+      // Add custom metadata based on config
+      if (pluginConfig.addMetadata) {
+        item.customField = 'value';
+      }
+      return item;
     }
   }
 };
